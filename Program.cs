@@ -7,6 +7,9 @@ using soan_backend.Repositories;
 using soan_backend.Repositories.Repository;
 using soan_backend.Services.Interfaces;
 using soan_backend.Services.UserService;
+using soan_backend.Helpers.HashingHelper;
+using Microsoft.Extensions.DependencyInjection;
+using soan_backend.Services.HashingService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +25,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ConnectionString"));
 });
 
+builder.Services.Configure<Encrypt>(builder.Configuration.GetSection("HashingOptions"));
+
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IPasswordHashing, PasswordHashingService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {

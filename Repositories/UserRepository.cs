@@ -16,7 +16,7 @@ namespace soan_backend.Repositories
         }
         public async Task <User?> LoginUser(UserLogin user)
         {
-            var findUser = await _context.User.Where(a => a.Email == user.Email && a.Password_Bash == user.Password_Bash).FirstOrDefaultAsync();
+            var findUser = await _context.User.Where(a => a.Email == user.Email).FirstOrDefaultAsync();
             if (findUser == null)
                 return null;
             return findUser;

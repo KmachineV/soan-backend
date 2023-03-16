@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace soan_backend.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class MigrationInitialModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,11 @@ namespace soan_backend.Migrations
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "User",
+                columns: new[] { "Id", "Email", "Name", "Password_Bash" },
+                values: new object[] { 1, "soanadmin@gmail.com", "AdminSoan", "10000.gWvSmlQVK/SQJGyAPy77iQ==.ZwW4/OVK4l7IHEVWU0BNhWMyAh41/lWIALo382fUEKQ=" });
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",

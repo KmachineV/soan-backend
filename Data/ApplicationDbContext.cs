@@ -13,6 +13,8 @@ namespace soan_backend.Data
         {
             builder.Entity<User>().ToTable("User").HasIndex(e => e.Email).IsUnique().HasName("EmailIndex");
 
+            builder.Seed();
+
         }
     }
 }

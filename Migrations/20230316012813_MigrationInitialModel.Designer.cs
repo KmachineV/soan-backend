@@ -11,8 +11,8 @@ using soan_backend.Data;
 namespace soan_backend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230310004232_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230316012813_MigrationInitialModel")]
+    partial class MigrationInitialModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,15 @@ namespace soan_backend.Migrations
                         .HasDatabaseName("EmailIndex");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "soanadmin@gmail.com",
+                            Name = "AdminSoan",
+                            Password_Bash = "10000.gWvSmlQVK/SQJGyAPy77iQ==.ZwW4/OVK4l7IHEVWU0BNhWMyAh41/lWIALo382fUEKQ="
+                        });
                 });
 #pragma warning restore 612, 618
         }

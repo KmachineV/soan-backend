@@ -10,10 +10,12 @@ namespace soan_backend.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IPasswordHashing _passwordHashing;
 
-        public AuthenticationController(IUserService userService)
+        public AuthenticationController(IUserService userService, IPasswordHashing passwordHashing)
         {
             _userService = userService;
+            _passwordHashing = passwordHashing;
         }
         
         [HttpPost("login")]
@@ -24,10 +26,19 @@ namespace soan_backend.Controllers
                 var userAuth = await _userService.Login(userLogin);
                 if (userAuth != null)
                 {
-                    var token = _userService.GetToken(userAuth);
-                    return Ok(token.Result);
+                    var isValid = _passwordHashing.Check(userAuth.Password_Bash, userLogin.Password_Bash);
+                    if (isValid)
+                    {
+                        var token = _userService.GetToken(userAuth);
+                        return Ok(token.Result);
+                    }
+                    else
+                    {
+                        return Unauthorized("Email o contraseña incorrectos");
+                    }
+                  
                 }
-                return NotFound();
+                return Unauthorized("Email o contraseña incorrectos");
             }
             catch (Exception e)
             {
