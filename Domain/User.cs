@@ -14,6 +14,13 @@ namespace soan_backend.Domain
 
         public string Password_Bash { get; set; }
 
+        //Relations 
+        public int RoleId { get; set; }
+
+        [ForeignKey("RoleId")]
+        public Role Role { get; set; }
+
+
 
     }
 }

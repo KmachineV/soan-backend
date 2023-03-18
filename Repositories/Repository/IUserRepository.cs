@@ -5,6 +5,8 @@ namespace soan_backend.Repositories.Repository
 {
     public interface IUserRepository
     {
-        Task<User?> LoginUser(UserLogin user);
+        Task<User?> LoginUser(UserLogin User);
+
+        Task <User?> GetUserForId(int Id);
     }
 }

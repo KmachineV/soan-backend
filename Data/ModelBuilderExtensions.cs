@@ -8,12 +8,17 @@ namespace soan_backend.Data
     {
      
         public static void Seed(this ModelBuilder builder)
-        {
+        {            
 
             builder.Entity<User>().HasData(
-                new User { Id = 1, Name = "AdminSoan", Password_Bash = PasswordEncrypt("Admin2445"), Email = "soanadmin@gmail.com" }
-                
+                new User { Id = 1, Name = "AdminSoan", Password_Bash = PasswordEncrypt("Admin2445"), Email = "soanadmin@gmail.com"}                
             );
+
+            builder.Entity<Role>().HasData(
+              new Role { Id = 1, Name = "Administrator" },
+              new Role { Id = 2, Name = "Recruiter" },
+              new Role { Id = 3, Name = "Postulant" }
+          );
 
         }
 

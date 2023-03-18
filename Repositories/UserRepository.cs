@@ -14,6 +14,20 @@ namespace soan_backend.Repositories
         {
             _context = context;
         }
+
+        public async Task<User> GetUserForId(int Id)
+        {
+            var findUserForId = await _context.User.Where(a => a.Id == Id)
+                .Include(a=> a.Role)
+                .FirstOrDefaultAsync();
+
+            if (findUserForId == null)
+                return null;
+
+            return findUserForId;
+        
+        }
+
         public async Task <User?> LoginUser(UserLogin user)
         {
             var findUser = await _context.User.Where(a => a.Email == user.Email).FirstOrDefaultAsync();

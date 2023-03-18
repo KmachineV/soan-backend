@@ -10,7 +10,9 @@
 *.userosscache
 *.sln.docstates
 .idea/
-appsettings.json
+
+
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -389,3 +391,4 @@ FodyWeavers.xsd
 Thumbs.db
 Desktop.ini
 .DS_Store
+appsettings.json

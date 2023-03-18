@@ -7,4 +7,6 @@ public interface IUserService
 {
     Task<UserJwt> GetToken(User user);
     Task<User?> Login(UserLogin user);
+
+    Task<User?> GetUserToken(int Id);
 }

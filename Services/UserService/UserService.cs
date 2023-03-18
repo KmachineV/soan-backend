@@ -24,8 +24,10 @@ public class UserService : IUserService
         var claims = new[]
         {
             new Claim(ClaimTypes.Email, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString(), ClaimValueTypes.Integer)
+            new Claim(ClaimTypes.Sid, user.Id.ToString(), ClaimValueTypes.Integer),
+            new Claim(ClaimTypes.Role, user.RoleId.ToString(), ClaimValueTypes.Integer)
         };
+
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -47,8 +49,22 @@ public class UserService : IUserService
 
     }
 
-    public async  Task<User?> Login(UserLogin user)
+    public async Task<User?> Login(UserLogin user)
     {
         return await _userRepository.LoginUser(user);
+    }
+
+    public async Task<User?> GetUserToken(int Id)
+    {
+        
+        var userForId = await _userRepository.GetUserForId(Id);
+        
+        if(userForId == null)
+        {
+            return null;
+        }
+
+        return userForId;
+
     }
 }
